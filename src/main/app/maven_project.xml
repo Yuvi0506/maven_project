@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:db="http://www.mulesoft.org/schema/mule/db"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" 
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
@@ -23,7 +29,8 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 	<jms:activemq-connector name="Active_MQ"
 		specification="1.1" brokerURL="vm://localhost:61616"
 		validateConnections="true" doc:name="Active MQ" />
-    <vm:connector name="VM" validateConnections="true" doc:name="VM"/>
+	<vm:connector name="VM" validateConnections="true"
+		doc:name="VM" />
 	<flow name="mavenFlow">
 
 		<http:listener config-ref="HTTP_Listener_Configuration"
@@ -36,11 +43,14 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 		<db:select config-ref="Derby_Configuration" doc:name="Database">
 			<db:parameterized-query><![CDATA[SELECT * FROM FLIGHTS]]></db:parameterized-query>
 		</db:select>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
-		<jms:outbound-endpoint doc:name="JMS" connector-ref="Active_MQ" queue="flights"/>
+		<json:object-to-json-transformer
+			doc:name="Object to JSON" />
+		<jms:outbound-endpoint doc:name="JMS"
+			connector-ref="Active_MQ" queue="flights" />
 	</flow>
 	<flow name="maven_projectFlow">
-		<jms:inbound-endpoint doc:name="JMS" connector-ref="Active_MQ" queue="flights"/>
-		<logger level="INFO" doc:name="Logger" message="#[payload]"/>
+		<jms:inbound-endpoint doc:name="JMS"
+			connector-ref="Active_MQ" queue="flights" />
+		<logger level="INFO" doc:name="Logger" message="#[payload]" />
 	</flow>
 </mule>
