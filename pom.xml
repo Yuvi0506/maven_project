@@ -4,8 +4,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mulesoft.training</groupId>
-	<artifactId>maven_project_raj</artifactId>
-	<version>1.0.0</version>
+	<artifactId>maven-project-raj</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule</packaging>
 	<name>Mule maven_project Application</name>
 
